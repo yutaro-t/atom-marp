@@ -1,0 +1,27 @@
+{
+  "name": "atom-marp",
+  "main": "./lib/atom-marp",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [],
+  "activationCommands": {
+    "atom-workspace": "atom-marp:toggle"
+  },
+  "repository": "https://github.com/atom/atom-marp",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "@marp-team/marp-core": "^0.8.0",
+    "@marp-team/marpit": "^0.9.2",
+    "highlight": "^0.2.4",
+    "postcss-scss": "^2.0.0"
+  },
+  "uriHandler": {
+    "method": "handleURI"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  }
+}
