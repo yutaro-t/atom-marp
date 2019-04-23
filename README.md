@@ -1,5 +1,11 @@
-# atom-marp package
+# Atom marp package
+===
+This is a experimental Atom package for rendering [Marp](https://yhatt.github.io/marp/) markdown slides.
 
-A short description of your package.
+## Usage
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+```
+git clone https://github.com/yutaro-t/atom-marp.git
+npm install
+apm link ./atom-marp
+```
