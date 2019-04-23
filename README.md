@@ -1,5 +1,6 @@
 # Atom marp package
-===
+
+
 This is a experimental Atom package for rendering [Marp](https://yhatt.github.io/marp/) markdown slides.
 
 ## Usage
