@@ -1,73 +1,63 @@
 'use babel';
 
-import AtomMarp from '../lib/atom-marp';
-
-// Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
-//
-// To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
-// or `fdescribe`). Remove the `f` to unfocus the block.
+import AtomMarp from '../lib/atom-marp'
+import AtomMarpView from '../lib/atom-marp-view'
+import path from 'path';
+import fs from 'fs-plus';
+import temp from 'temp';
 
 describe('AtomMarp', () => {
-  let workspaceElement, activationPromise;
+  let preview, activationPromise, workspaceElement
+  let tempTrack = temp.track()
+  let editor
 
-  beforeEach(() => {
-    workspaceElement = atom.views.getView(atom.workspace);
-    activationPromise = atom.packages.activatePackage('atom-marp');
-  });
+  beforeEach(function () {
+    workspaceElement = atom.views.getView(atom.workspace)
+    jasmine.attachToDOM(workspaceElement)
+    activationPromise = atom.packages.activatePackage('atom-marp')
 
-  describe('when the atom-marp:toggle event is triggered', () => {
-    it('hides and shows the modal panel', () => {
-      // Before the activation event the view is not on the DOM, and no panel
-      // has been created
-      expect(workspaceElement.querySelector('.atom-marp')).not.toExist();
+    const fixturesPath = path.join(__dirname, 'fixtures')
+    const tempPath = tempTrack.mkdirSync('atom')
+    fs.copySync(fixturesPath, tempPath)
+    atom.project.setPaths([tempPath])
 
-      // This is an activation event, triggering it will cause the package to be
-      // activated.
-      atom.commands.dispatch(workspaceElement, 'atom-marp:toggle');
+  })
 
-      waitsForPromise(() => {
-        return activationPromise;
-      });
+  const executeCommand = callback => {
+    runs(() => {
+      atom.commands.dispatch(atom.workspace.getActiveTextEditor().getElement(), 'atom-marp:toggle')
+    })
+    waitsForPromise(() => activationPromise)
+    runs(callback)
+  }
 
-      runs(() => {
-        expect(workspaceElement.querySelector('.atom-marp')).toExist();
+  const expectPreviewInSplitPane = () => {
+    waitsFor(() => {
+      return atom.workspace.getCenter().getPanes().length === 2
+    })
 
-        let atomMarpElement = workspaceElement.querySelector('.atom-marp');
-        expect(atomMarpElement).toExist();
+    runs(() => {
+      preview = atom.workspace.getCenter().getPanes()[1].getActiveItem()
+      expect(preview).toBeInstanceOf(AtomMarpView)
+      expect(preview.getPath()).toBe(
+        atom.workspace.getActivePaneItem().getPath()
+      )
+    })
+  }
 
-        let atomMarpPanel = atom.workspace.panelForItem(atomMarpElement);
-        expect(atomMarpPanel.isVisible()).toBe(true);
-        atom.commands.dispatch(workspaceElement, 'atom-marp:toggle');
-        expect(atomMarpPanel.isVisible()).toBe(false);
-      });
-    });
-
-    it('hides and shows the view', () => {
-      // This test shows you an integration test testing at the view level.
-
-      // Attaching the workspaceElement to the DOM is required to allow the
-      // `toBeVisible()` matchers to work. Anything testing visibility or focus
-      // requires that the workspaceElement is on the DOM. Tests that attach the
-      // workspaceElement to the DOM are generally slower than those off DOM.
-      jasmine.attachToDOM(workspaceElement);
-
-      expect(workspaceElement.querySelector('.atom-marp')).not.toExist();
-
-      // This is an activation event, triggering it causes the package to be
-      // activated.
-      atom.commands.dispatch(workspaceElement, 'atom-marp:toggle');
-
-      waitsForPromise(() => {
-        return activationPromise;
-      });
+  describe('when a preview has not been created for the file', function() {
+    it('displays a markdown preview in a split pane', function() {
+      waitsForPromise(() => atom.workspace.open('markdowns/test.md'))
+      executeCommand(() => {
+        expectPreviewInSplitPane()
+      })
 
       runs(() => {
-        // Now we can test for view visibility
-        let atomMarpElement = workspaceElement.querySelector('.atom-marp');
-        expect(atomMarpElement).toBeVisible();
-        atom.commands.dispatch(workspaceElement, 'atom-marp:toggle');
-        expect(atomMarpElement).not.toBeVisible();
-      });
-    });
-  });
+        const [editorPane] = atom.workspace.getCenter().getPanes()
+        expect(editorPane.getItems()).toHaveLength(1)
+        expect(editorPane.isActive()).toBe(true)
+      })
+    })
+  })
+
 });
