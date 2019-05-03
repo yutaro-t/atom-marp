@@ -2,7 +2,7 @@
   "name": "atom-marp",
   "main": "./lib/atom-marp",
   "version": "1.0.0",
-  "description": "A experimental Atom package for rendering Marp markdown slide",
+  "description": "Live rendering from markdown to presentation slides, using Marp",
   "keywords": [
     "markdown",
     "preview",

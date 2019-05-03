@@ -1,12 +1,14 @@
-# Atom marp package
+# Atom Marp package
 
+Live rendering from markdown to presentation slides, using [Marp](https://yhatt.github.io/marp/).
 
-This is a experimental Atom package for rendering [Marp](https://yhatt.github.io/marp/) markdown slides.
+## Installation
+
+```
+apm install atom-marp
+```
+or go to `Settings > Install` and search `atom-marp`.
 
 ## Usage
 
-```
-git clone https://github.com/yutaro-t/atom-marp.git
-npm install
-apm link ./atom-marp
-```
+Toggle live preview by `ctrl-alt-m`. Marp specific grammers can be found [here](https://marpit.marp.app/markdown)
