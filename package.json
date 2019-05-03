@@ -18,9 +18,6 @@
     "highlight": "^0.2.4",
     "postcss-scss": "^2.0.0"
   },
-  "uriHandler": {
-    "method": "handleURI"
-  },
   "devDependencies": {
     "fs-plus": "^3.1.1",
     "mocha": "^6.1.4",
