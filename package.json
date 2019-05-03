@@ -1,9 +1,14 @@
 {
   "name": "atom-marp",
   "main": "./lib/atom-marp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A experimental Atom package for rendering Marp markdown slide",
-  "keywords": ["markdown", "preview", "marp", "slide"],
+  "keywords": [
+    "markdown",
+    "preview",
+    "marp",
+    "slide"
+  ],
   "activationCommands": {
     "atom-workspace": "atom-marp:toggle"
   },
@@ -26,5 +31,4 @@
   "deserializers": {
     "AtomMarpView": "deserializeView"
   }
-
 }
