@@ -2,8 +2,8 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle atom-marpit",
-        "command": "atom-marpit:toggle"
+        "label": "Toggle Atom Marp",
+        "command": "atom-marp:toggle"
       }
     ]
   },
@@ -12,11 +12,11 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "atom-marpit",
+          "label": "Atom Marp",
           "submenu": [
             {
               "label": "Toggle",
-              "command": "atom-marpit:toggle"
+              "command": "atom-marp:toggle"
             }
           ]
         }
