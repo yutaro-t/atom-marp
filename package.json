@@ -2,12 +2,12 @@
   "name": "atom-marp",
   "main": "./lib/atom-marp",
   "version": "0.0.0",
-  "description": "A short description of your package",
-  "keywords": [],
+  "description": "A experimental Atom package for rendering Marp markdown slide",
+  "keywords": ["markdown", "preview", "marp", "slide"],
   "activationCommands": {
     "atom-workspace": "atom-marp:toggle"
   },
-  "repository": "https://github.com/atom/atom-marp",
+  "repository": "https://github.com/yutaro-t/atom-marp",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
